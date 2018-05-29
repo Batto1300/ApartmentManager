@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Apartment Manager</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <!-- Strings related to SignUp -->
+    <string name="Apartment_text_field">Apartment</string>
+    <string name="registration_button">Sign Up</string>
+    <string name="title_activity_sign_up">Sign Up</string>
+    <string name="title_activity_main">MainActivity</string>
+    <!-- Strings related to Main Activity -->
+    <string name="roommates">Roommates</string>
+    <string name="jobs">Jobs</string>
+    <string name="missing">Missing</string>
+    <string name="wont_be_home_button">I will not be at home!</string>
+    <string name="missing_people">Who will not be at home?</string>>
+</resources>
