@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
-
+    FragmentManager manager;
+    MissingFragment missingFragment;
+    JobsFragment jobsFragment;
+    RoommatesFragment roommatesFragment;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -21,19 +23,19 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_roommates:
-                    //RelativeLayout layout = (RelativeLayout) findViewById(R.id.container);
-                    //layout.addView();
-                    FragmentManager manager = getFragmentManager();
-                    FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.container,new MissingFragment(),"missing");
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+                    FragmentTransaction roommatesTransaction = manager.beginTransaction();
+                    roommatesTransaction.replace(R.id.container,roommatesFragment,"jobs");
+                    roommatesTransaction.commit();
                     return true;
                 case R.id.navigation_jobs:
-                    mTextMessage.setText(R.string.jobs);
+                    FragmentTransaction jobsTransaction = manager.beginTransaction();
+                    jobsTransaction.replace(R.id.container,jobsFragment,"jobs");
+                    jobsTransaction.commit();
                     return true;
                 case R.id.navigation_missing:
-                    mTextMessage.setText(R.string.missing);
+                    FragmentTransaction missingTransaction = manager.beginTransaction();
+                    missingTransaction.replace(R.id.container,missingFragment,"missing");
+                    missingTransaction.commit();
                     return true;
             }
             return false;
@@ -44,9 +46,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        missingFragment = new MissingFragment();
+        jobsFragment = new JobsFragment();
+        roommatesFragment = new RoommatesFragment();
+        manager = getFragmentManager();
+        FragmentTransaction initial_transaction = manager.beginTransaction();
+        initial_transaction.add(R.id.container,roommatesFragment,"missing");
+        initial_transaction.commit();
+
     }
 
 }

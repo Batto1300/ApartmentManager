@@ -14,8 +14,7 @@ import android.os.Bundle;
 public class MissingFragment extends Fragment {
 
         public View onCreateView(LayoutInflater inflater, ViewGroup vg, Bundle savedInstanceState){
-            return inflater.inflate(R.layout.fragment_missing, vg,false);
-
+           return inflater.inflate(R.layout.fragment_missing, vg,false);
         }
     }
 
