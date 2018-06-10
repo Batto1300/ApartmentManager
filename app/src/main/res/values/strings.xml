@@ -22,6 +22,11 @@
     <string name="roommates">Roommates</string>
     <string name="jobs">Jobs</string>
     <string name="missing">Missing</string>
-    <string name="wont_be_home_button">I will not be at home!</string>
-    <string name="missing_people">Who will not be at home?</string>>
+    <string name="missing_button">I will not be at home!</string>
+    <string name="missing_title">Who will not be at home?</string>
+    <string name="jobs_title">Upcoming Jobs</string>
+    <string name="jobs_button">Create new Job</string>
+    <string name="roommates_title">My roommates</string>
+    <string name="roommates_button">Invite Roommates</string>
+
 </resources>
