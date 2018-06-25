@@ -28,5 +28,9 @@
     <string name="jobs_button">Create new Job</string>
     <string name="roommates_title">My roommates</string>
     <string name="roommates_button">Invite Roommates</string>
+    <!-- Strings related to Join Apartment Activity-->
+    <string name="join_apartment_text">Apartment</string>
+    <string name="join_apartment_button">Join</string>
+    <string name="create_apartment_button">Create</string>
 
 </resources>

@@ -59,11 +59,11 @@ class JobsAdapter extends BaseAdapter{
         jobList.addAll(jobs);
         notifyDataSetChanged();
     }
-}
-
-class JobsViewHolder{
-    TextView jobsListView;
-    public JobsViewHolder(View convertView){
-        this.jobsListView = convertView.findViewById(R.id.jobs_list_item);
+    class JobsViewHolder{
+        TextView jobsListView;
+        private JobsViewHolder(View convertView){
+            this.jobsListView = convertView.findViewById(R.id.jobs_list_item);
+        }
     }
 }
+
