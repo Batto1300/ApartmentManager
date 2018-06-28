@@ -19,10 +19,18 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetailsHandler;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.unipg.tommaso.apartmentmanager.jobs.JobsFragment;
+import com.unipg.tommaso.apartmentmanager.joinapartment.JoinApartment;
 import com.unipg.tommaso.apartmentmanager.missing.Apartment;
 import com.unipg.tommaso.apartmentmanager.missing.MissingFragment;
 import com.unipg.tommaso.apartmentmanager.roommates.Roommate;
 import com.unipg.tommaso.apartmentmanager.roommates.RoommatesFragment;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,14 +77,25 @@ public class MainActivity extends AppCompatActivity {
             getUserAttributesTask.execute().get();
             Roommate me = new Roommate(userName);
             new SynchUser().execute(me);
-            Apartment.getApartment().addRoommate(me,true);
+            Apartment.getApartment().addRoommate(me);
+            Apartment.getApartment().setMe(me);
             if(userApartment == null){
                 Intent i = new Intent(this, JoinApartment.class);
                 startActivity(i);
             }else{
                 Apartment.getApartment().setName(userApartment);
+                FileInputStream fis = this.openFileInput("AppData");
+                InputStreamReader isr = new InputStreamReader(fis);
+                BufferedReader bufferedReader = new BufferedReader(isr);
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    sb.append(line);
+                }
+                me.setDisplayName(sb.toString());
+                Log.d("displayname cached",me.getDisplayName());
             }
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (InterruptedException | ExecutionException | IOException e) {
             e.printStackTrace();
         }
         BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -111,8 +130,8 @@ public class MainActivity extends AppCompatActivity {
                     userApartment = cognitoUserDetails.getAttributes().getAttributes().get("custom:apartment");
                     userName = cognitoUserDetails.getAttributes().getAttributes().get("sub");
                     Log.d("cognito attributes",cognitoUserDetails.getAttributes().getAttributes().toString());
-                    Log.d("userApartment",userApartment+" asdad");
-                    Log.d("userName",userName+" asdd");
+                    Log.d("userApartment",userApartment);
+                    Log.d("userName",userName);
 
                 }
                 @Override

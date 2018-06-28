@@ -4,6 +4,7 @@ import com.unipg.tommaso.apartmentmanager.jobs.Job;
 import com.unipg.tommaso.apartmentmanager.roommates.Roommate;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by tommaso on 23/06/2018.
@@ -12,9 +13,9 @@ import java.util.ArrayList;
 public class Apartment {
     private static final Apartment apartment = new Apartment();
     private static final ArrayList<Roommate> roommates = new ArrayList<>();
+    private static final ArrayList<Job> jobs = new ArrayList<>();
     private static String name;
     private static Roommate me;
-    private static ArrayList<Job> jobs;
 
 
     public static Apartment getApartment() {
@@ -41,20 +42,20 @@ public class Apartment {
         return roommates;
     }
 
-    public void addRoommate(Roommate roommate,Boolean is_me) {
-        roommates.add(roommate);
-        if(is_me) {
-            me = roommate;
-        }
-    }
+    public  void addRoommate(Roommate roommate) {Apartment.roommates.add(roommate);}
 
     public ArrayList<Job> getJobs() {
         return jobs;
     }
 
-    public void setJobs(ArrayList<Job> jobs) {
-        Apartment.jobs = jobs;
+    public void addJob(Job job) { jobs.add(job); }
+
+    public Roommate getRoommate(String roommateName){
+        for(Roommate e: roommates){
+            if(Objects.equals(e.getName(),roommateName)){
+                return e;
+            }
+        }
+        return null;
     }
-
-
 }

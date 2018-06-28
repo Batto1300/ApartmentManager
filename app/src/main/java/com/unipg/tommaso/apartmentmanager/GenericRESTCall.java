@@ -24,11 +24,9 @@ public class GenericRESTCall {
             GenericRESTCall.putPostData(connection, postData);
             InputStreamReader streamReader;
             streamReader = new InputStreamReader(connection.getInputStream());
-
             //Create a new buffered reader and String Builder
             BufferedReader reader = new BufferedReader(streamReader);
             StringBuilder stringBuilder = new StringBuilder();
-
             //Check if the line we are reading is not null
             while ((inputLine = reader.readLine()) != null) {
                 stringBuilder.append(inputLine);

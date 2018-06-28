@@ -7,6 +7,7 @@ package com.unipg.tommaso.apartmentmanager.roommates;
 public class Roommate {
     private String name;
     private Boolean isAdmin;
+    private String displayName;
 
     public Roommate(String name){
         this.name = name;
@@ -23,5 +24,13 @@ public class Roommate {
 
     public void setAdmin(Boolean admin) {
         isAdmin = admin;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

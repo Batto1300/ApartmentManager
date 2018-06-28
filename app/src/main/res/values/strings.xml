@@ -32,5 +32,11 @@
     <string name="join_apartment_text">Apartment</string>
     <string name="join_apartment_button">Join</string>
     <string name="create_apartment_button">Create</string>
+    <string name="display_name">Display Name</string>
+    <string name="job_name">Job name</string>
+    <string name="job_date">Job date</string>
+    <string name="job_time">Job time</string>
+    <string name="job_assignee">Job assignee</string>
+    <string name="create_job">Create job</string>
 
 </resources>
