@@ -21,7 +21,7 @@ public class GenericRESTCall {
         JSONObject result = new JSONObject();
         try {
             String inputLine;
-            GenericRESTCall.putPostData(connection, postData);
+            if (postData != null) GenericRESTCall.putPostData(connection, postData);
             InputStreamReader streamReader;
             streamReader = new InputStreamReader(connection.getInputStream());
             //Create a new buffered reader and String Builder

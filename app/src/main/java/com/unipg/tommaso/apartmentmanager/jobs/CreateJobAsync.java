@@ -3,18 +3,13 @@ package com.unipg.tommaso.apartmentmanager.jobs;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.util.Log;
-
 import com.unipg.tommaso.apartmentmanager.GenericRESTCall;
 import com.unipg.tommaso.apartmentmanager.missing.Apartment;
 import com.unipg.tommaso.apartmentmanager.roommates.Roommate;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Objects;
 
