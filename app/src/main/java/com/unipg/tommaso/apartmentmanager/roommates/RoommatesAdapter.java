@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.unipg.tommaso.apartmentmanager.R;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,11 +16,11 @@ import java.util.List;
  */
 
 public class RoommatesAdapter extends BaseAdapter{
-    List<String> roommatesList;
+    ArrayList<Roommate> roommatesList;
     private Context context;
     private LayoutInflater inflater;
 
-    public RoommatesAdapter(List roommatesList,Context context) {
+    public RoommatesAdapter(ArrayList<Roommate> roommatesList, Context context) {
         this.context = context;
         this.roommatesList = roommatesList;
         this.inflater = LayoutInflater.from(this.context);
@@ -30,7 +32,7 @@ public class RoommatesAdapter extends BaseAdapter{
     }
 
     @Override
-    public String getItem(int position) {
+    public Roommate getItem(int position) {
         return roommatesList.get(position);
     }
 
@@ -49,12 +51,12 @@ public class RoommatesAdapter extends BaseAdapter{
         }else {
             holder = (RoommatesViewHolder) convertView.getTag();
         }
-        String currentName = getItem(position);
+        String currentName = getItem(position).getDisplayName();
         holder.roommate_name.setText(currentName);
         return convertView;
     }
 
-    public void setRoommates(List<String> roommates){
+    public void setRoommates(List<Roommate> roommates){
         roommatesList.addAll(roommates);
         notifyDataSetChanged();
     }

@@ -38,5 +38,10 @@
     <string name="job_time">Job time</string>
     <string name="job_assignee">Job assignee</string>
     <string name="create_job">Create job</string>
+    <string name="start_date">Start Date</string>
+    <string name="signal_absence">Signal Absence</string>
+    <string name="end_date">End Date</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
 
 </resources>

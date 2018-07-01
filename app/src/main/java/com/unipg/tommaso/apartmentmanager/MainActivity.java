@@ -20,7 +20,6 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetail
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.unipg.tommaso.apartmentmanager.jobs.JobsFragment;
 import com.unipg.tommaso.apartmentmanager.joinapartment.JoinApartment;
-import com.unipg.tommaso.apartmentmanager.missing.Apartment;
 import com.unipg.tommaso.apartmentmanager.missing.MissingFragment;
 import com.unipg.tommaso.apartmentmanager.roommates.Roommate;
 import com.unipg.tommaso.apartmentmanager.roommates.RoommatesFragment;

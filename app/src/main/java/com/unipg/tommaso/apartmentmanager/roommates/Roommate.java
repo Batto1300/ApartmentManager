@@ -9,6 +9,10 @@ public class Roommate {
     private Boolean isAdmin;
     private String displayName;
 
+    public Roommate(String name, String displayName){
+        this.name = name;
+        this.displayName = displayName;
+    }
     public Roommate(String name){
         this.name = name;
     }

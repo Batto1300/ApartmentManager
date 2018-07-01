@@ -1,45 +1,48 @@
-package com.unipg.tommaso.apartmentmanager.jobs;
+package com.unipg.tommaso.apartmentmanager.missing;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
-import com.unipg.tommaso.apartmentmanager.GenericRESTCall;
 import com.unipg.tommaso.apartmentmanager.Apartment;
+import com.unipg.tommaso.apartmentmanager.GenericRESTCall;
+import com.unipg.tommaso.apartmentmanager.jobs.Job;
 import com.unipg.tommaso.apartmentmanager.roommates.Roommate;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 
 /**
- * Created by tommaso on 10/06/2018.
+ * Created by tommaso on 30/06/2018.
  */
 
-class RetrieveJobsAsync extends AsyncTaskLoader<ArrayList<Job>>{
+class RetrieveMissingAsync extends AsyncTaskLoader<ArrayList<Missing>> {
     private static final String REQUEST_METHOD = "GET";
     private static final int READ_TIMEOUT = 15000;
     private static final int CONNECTION_TIMEOUT = 15000;
-    
-    public RetrieveJobsAsync(Context context) {
+
+
+    public RetrieveMissingAsync(Context context) {
         super(context);
     }
 
     @Override
-    public ArrayList<Job> loadInBackground() {
-        ArrayList<Job> jobs = new ArrayList<>();
+    public ArrayList<Missing> loadInBackground() {
+        ArrayList<Missing> missingRoommates = new ArrayList<>();
         try {
-            String readJobsURLString = "http://ec2-34-242-40-246.eu-west-1.compute.amazonaws.com/api/job/read.php/?apartment_name=%s&date=%s";
+            String readJobsURLString = "http://ec2-34-242-40-246.eu-west-1.compute.amazonaws.com/api/missing/read.php/?apartment_name=%s";
             Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy / MM / dd ", Locale.ITALY);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ITALY);
             String strDate = dateFormat.format(calendar.getTime());
-            readJobsURLString = String.format(readJobsURLString,Apartment.getApartment().getName(),strDate);
+            readJobsURLString = String.format(readJobsURLString, Apartment.getApartment().getName(),strDate);
             URL url = new URL(readJobsURLString);
             HttpURLConnection connection;
             connection = (HttpURLConnection) url.openConnection();
@@ -55,13 +58,13 @@ class RetrieveJobsAsync extends AsyncTaskLoader<ArrayList<Job>>{
                 Roommate assignee = Apartment.getApartment().getRoommate(jsonJob.get("assignee").toString());
                 Job newJob = new Job(jsonJob.get("name").toString(),jsonJob.get("date").toString(),assignee);
                 Apartment.getApartment().getJobs().add(newJob);
-                jobs.add(newJob);
+                missingRoommates.add(newJob);
             }
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
         //implement with api here
-        return jobs;
+        return missingRoommates;
     }
 }

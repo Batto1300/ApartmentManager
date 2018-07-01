@@ -1,6 +1,7 @@
-package com.unipg.tommaso.apartmentmanager.missing;
+package com.unipg.tommaso.apartmentmanager;
 
 import com.unipg.tommaso.apartmentmanager.jobs.Job;
+import com.unipg.tommaso.apartmentmanager.missing.Missing;
 import com.unipg.tommaso.apartmentmanager.roommates.Roommate;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class Apartment {
     private static final Apartment apartment = new Apartment();
     private static final ArrayList<Roommate> roommates = new ArrayList<>();
     private static final ArrayList<Job> jobs = new ArrayList<>();
+    private static final ArrayList<Missing> missingRoommates = new ArrayList<>();
     private static String name;
     private static Roommate me;
 
@@ -42,7 +44,7 @@ public class Apartment {
         return roommates;
     }
 
-    public  void addRoommate(Roommate roommate) {Apartment.roommates.add(roommate);}
+    public void addRoommate(Roommate roommate) {Apartment.roommates.add(roommate);}
 
     public ArrayList<Job> getJobs() {
         return jobs;
@@ -50,9 +52,13 @@ public class Apartment {
 
     public void addJob(Job job) { jobs.add(job); }
 
+    public void addMissing(Missing missing){ missingRoommates.add(missing)}
+
+    public ArrayList<Missing> getMissingRoommates(){ return missingRoommates}
+
     public Roommate getRoommate(String roommateName){
         for(Roommate e: roommates){
-            if(Objects.equals(e.getName(),roommateName)){
+            if(Objects.equals(e.getDisplayName(),roommateName) | Objects.equals(e.getName(),roommateName)){
                 return e;
             }
         }

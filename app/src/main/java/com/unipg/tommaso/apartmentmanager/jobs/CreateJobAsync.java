@@ -4,7 +4,7 @@ import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.util.Log;
 import com.unipg.tommaso.apartmentmanager.GenericRESTCall;
-import com.unipg.tommaso.apartmentmanager.missing.Apartment;
+import com.unipg.tommaso.apartmentmanager.Apartment;
 import com.unipg.tommaso.apartmentmanager.roommates.Roommate;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,17 +26,17 @@ public class CreateJobAsync extends AsyncTaskLoader<Boolean>{
     private Roommate jobAssignee;
 
 
-    public CreateJobAsync(Context context, String jobName, String jobDate, String jobAssignee) {
+    public CreateJobAsync(Context context, String jobName, String jobDate, Roommate jobAssignee) {
         super(context);
         this.jobName = jobName;
         this.jobDate = jobDate;
-        this.jobAssignee = Apartment.getApartment().getRoommate(jobAssignee);
+        this.jobAssignee = jobAssignee;
     }
 
     @Override
     public Boolean loadInBackground() {
         try {
-            String createJobURLString = "http://ec2-34-242-40-246.eu-west-1.compute.amazonaws.com/api/missing/create.php";
+            String createJobURLString = "http://ec2-34-242-40-246.eu-west-1.compute.amazonaws.com/api/job/create.php";
             URL url = new URL(createJobURLString);
             HttpURLConnection connection;
             connection = (HttpURLConnection) url.openConnection();
@@ -44,13 +44,15 @@ public class CreateJobAsync extends AsyncTaskLoader<Boolean>{
             connection.setReadTimeout(READ_TIMEOUT);
             connection.setConnectTimeout(CONNECTION_TIMEOUT);
             connection.connect();
+            Log.d("jobDate",jobDate);
             JSONObject postData = new JSONObject()
-                    .put("name", Apartment.getApartment().getMe().getName())
+                    .put("name", jobName)
                     .put("date", jobDate)
                     .put("assignee",jobAssignee.getName());
             JSONObject RESTResponse = GenericRESTCall.makeRESTCall(connection,postData);
             Log.d("json response",RESTResponse.toString());
-            if(Objects.equals(RESTResponse.get("error_message"),"")){
+            if(!Objects.equals(RESTResponse.get("message"),"")){
+                Log.d("Job added","it worked!");
                 Apartment.getApartment().addJob(new Job(jobName,jobDate,jobAssignee));
             }
         } catch (IOException | JSONException e) {

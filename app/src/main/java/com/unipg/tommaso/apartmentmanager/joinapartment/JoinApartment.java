@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.unipg.tommaso.apartmentmanager.R;
-import com.unipg.tommaso.apartmentmanager.missing.Apartment;
+import com.unipg.tommaso.apartmentmanager.Apartment;
 
 import java.io.File;
 import java.io.FileOutputStream;

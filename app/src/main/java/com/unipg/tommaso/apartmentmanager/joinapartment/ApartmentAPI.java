@@ -5,7 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.unipg.tommaso.apartmentmanager.GenericRESTCall;
-import com.unipg.tommaso.apartmentmanager.missing.Apartment;
+import com.unipg.tommaso.apartmentmanager.Apartment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -100,11 +100,12 @@ class ApartmentAPI extends AsyncTaskLoader<ApartmentAPIResponse> {
         try {
             JSONObject postData = new JSONObject()
                     .put("apartment_name", apartmentName)
-                    .put("inmate_name",Apartment.getApartment().getMe().getName());
+                    .put("inmate_name",Apartment.getApartment().getMe().getName())
+                    .put("display_name",displayName);
             JSONObject RESTResponse = GenericRESTCall.makeRESTCall(connection_create,postData);
             Log.d("json response",RESTResponse.toString());
             APIResponse.errorMessage = getValue(RESTResponse,"error_message");
-            APIResponse.successMessage = getValue(RESTResponse,"message");;
+            APIResponse.successMessage = getValue(RESTResponse,"message");
         }catch(JSONException e) {
             e.printStackTrace();
         }
