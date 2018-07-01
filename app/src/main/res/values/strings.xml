@@ -17,7 +17,7 @@
     <string name="Apartment_text_field">Apartment</string>
     <string name="registration_button">Sign Up</string>
     <string name="title_activity_sign_up">Sign Up</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Apartment Manager</string>
     <!-- Strings related to Main Activity -->
     <string name="roommates">Roommates</string>
     <string name="jobs">Jobs</string>
@@ -43,5 +43,6 @@
     <string name="end_date">End Date</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
+    <string name="refresh">Refresh</string>
 
 </resources>

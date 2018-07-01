@@ -44,7 +44,7 @@ class MissingAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         MissingViewHolder holder;
         if (convertView == null){
-            convertView = inflater.inflate(R.layout.jobs_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.missing_list_item, parent, false);
             holder = new MissingViewHolder(convertView);
             convertView.setTag(holder);
         }else {

@@ -5,7 +5,6 @@ import android.content.Context;
 
 import com.unipg.tommaso.apartmentmanager.Apartment;
 import com.unipg.tommaso.apartmentmanager.GenericRESTCall;
-import com.unipg.tommaso.apartmentmanager.jobs.Job;
 import com.unipg.tommaso.apartmentmanager.roommates.Roommate;
 
 import org.json.JSONArray;
@@ -52,19 +51,19 @@ class RetrieveMissingAsync extends AsyncTaskLoader<ArrayList<Missing>> {
             connection.connect();
             JSONObject RESTResponse = GenericRESTCall.makeRESTCall(connection,null);
             connection.disconnect();
-            JSONArray jsonJobs = RESTResponse.getJSONArray("records");
-            for(int i=0 ; i < jsonJobs.length(); i++){
-                JSONObject jsonJob = jsonJobs.getJSONObject(i);
-                Roommate assignee = Apartment.getApartment().getRoommate(jsonJob.get("assignee").toString());
-                Job newJob = new Job(jsonJob.get("name").toString(),jsonJob.get("date").toString(),assignee);
-                Apartment.getApartment().getJobs().add(newJob);
-                missingRoommates.add(newJob);
+            JSONArray jsonMissings = RESTResponse.getJSONArray("records");
+            for(int i=0 ; i < jsonMissings.length(); i++) {
+                JSONObject jsonMissing = jsonMissings.getJSONObject(i);
+                Roommate who = Apartment.getApartment().getRoommate(jsonMissing.get("name").toString());
+                String startDateTime = jsonMissing.get("start_date").toString();
+                String endDateTime = jsonMissing.get("end_date").toString();
+                Missing newMissing = new Missing(who, startDateTime, endDateTime);
+                Apartment.getApartment().addMissing(newMissing);
+                missingRoommates.add(newMissing);
             }
-
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-        //implement with api here
         return missingRoommates;
     }
 }

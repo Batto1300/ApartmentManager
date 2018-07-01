@@ -6,7 +6,11 @@ import android.app.ProgressDialog;
 import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -29,7 +33,7 @@ public class RoommatesFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup vg, Bundle savedInstanceState){
@@ -46,8 +50,18 @@ public class RoommatesFragment extends Fragment implements LoaderManager.LoaderC
         return view;
     }
 
-    public void onActivityCreated(Bundle savedInstanceState){
-        super.onActivityCreated(savedInstanceState);
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.refresh){
+            getLoaderManager().initLoader(0,null,this ).forceLoad();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -60,7 +74,7 @@ public class RoommatesFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onLoadFinished(Loader<ArrayList<Roommate>> loader, ArrayList<Roommate> data) {
         nDialog.dismiss();
-        //adapter.setRoommates(data);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

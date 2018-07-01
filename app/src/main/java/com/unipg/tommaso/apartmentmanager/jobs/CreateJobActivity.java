@@ -77,7 +77,6 @@ public class CreateJobActivity extends AppCompatActivity implements LoaderManage
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
-
             }
         });
         date = new DatePickerDialog.OnDateSetListener() {
@@ -127,9 +126,7 @@ public class CreateJobActivity extends AppCompatActivity implements LoaderManage
     }
 
     @Override
-    public void onLoaderReset(Loader<Boolean> loader) {
-
-    }
+    public void onLoaderReset(Loader<Boolean> loader) {}
 
     @Override
     public void onBackPressed() {

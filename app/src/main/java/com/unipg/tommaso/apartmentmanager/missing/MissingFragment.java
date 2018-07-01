@@ -7,8 +7,10 @@ import android.app.LoaderManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.Loader;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Bundle;
@@ -17,7 +19,6 @@ import android.widget.ListView;
 
 import com.unipg.tommaso.apartmentmanager.Apartment;
 import com.unipg.tommaso.apartmentmanager.R;
-import com.unipg.tommaso.apartmentmanager.jobs.CreateJobActivity;
 
 import java.util.ArrayList;
 
@@ -34,15 +35,22 @@ public class MissingFragment extends Fragment implements LoaderManager.LoaderCal
     boolean is_loaded = false;
     ProgressDialog nDialog;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup vg, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_missing, vg,false);
         ListView list = view.findViewById(R.id.missing_list);
+        createJobButton = view.findViewById(R.id.missing_button);
         adapter = new MissingAdapter(Apartment.getApartment().getMissingRoommates(), getContext());
         list.setAdapter(adapter);
         createJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(),CreateJobActivity.class);
+                Intent i = new Intent(getContext(),CreateMissingActivity.class);
                 startActivityForResult(i, 0);
             }
         });
@@ -67,7 +75,15 @@ public class MissingFragment extends Fragment implements LoaderManager.LoaderCal
         }
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.refresh){
+            getLoaderManager().initLoader(0,null,this ).forceLoad();
+            Log.d("missing clicked","clicked!");
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public Loader<ArrayList<Missing>> onCreateLoader(int id, Bundle args) {
@@ -83,9 +99,8 @@ public class MissingFragment extends Fragment implements LoaderManager.LoaderCal
     }
 
     @Override
-    public void onLoaderReset(Loader<ArrayList<Missing>> loader) {
+    public void onLoaderReset(Loader<ArrayList<Missing>> loader) {}
 
-    }
-    }
+}
 
 

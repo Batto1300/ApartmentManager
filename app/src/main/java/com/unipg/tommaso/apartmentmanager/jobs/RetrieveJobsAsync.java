@@ -54,7 +54,7 @@ class RetrieveJobsAsync extends AsyncTaskLoader<ArrayList<Job>>{
                 JSONObject jsonJob = jsonJobs.getJSONObject(i);
                 Roommate assignee = Apartment.getApartment().getRoommate(jsonJob.get("assignee").toString());
                 Job newJob = new Job(jsonJob.get("name").toString(),jsonJob.get("date").toString(),assignee);
-                Apartment.getApartment().getJobs().add(newJob);
+                Apartment.getApartment().addJob(newJob);
                 jobs.add(newJob);
             }
 

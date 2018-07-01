@@ -12,7 +12,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toolbar;
+
 import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
@@ -107,6 +110,23 @@ public class MainActivity extends AppCompatActivity {
         initial_transaction.commit();
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.refresh){
+            // do something
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     private class getUserAttributes extends AsyncTask<Void, Void, Boolean> {
         ProgressDialog progDailog;
         @SuppressLint("StaticFieldLeak")
@@ -149,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
             progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progDailog.show();
         }
+
 
     }
 

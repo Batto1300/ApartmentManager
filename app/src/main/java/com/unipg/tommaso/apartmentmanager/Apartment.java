@@ -44,17 +44,37 @@ public class Apartment {
         return roommates;
     }
 
-    public void addRoommate(Roommate roommate) {Apartment.roommates.add(roommate);}
 
     public ArrayList<Job> getJobs() {
         return jobs;
     }
 
-    public void addJob(Job job) { jobs.add(job); }
+    public void addRoommate(Roommate roommate) {
+        for(Roommate e: roommates){
+            if(roommate.equals(e)) return;
+        }
+        roommates.add(roommate);
+    }
 
-    public void addMissing(Missing missing){ missingRoommates.add(missing)}
+    public void addJob(Job job) {
+        for(Job e: jobs){
+            if(job.equals(e)) return;
+        }
+        jobs.add(job);
+    }
 
-    public ArrayList<Missing> getMissingRoommates(){ return missingRoommates}
+    public void addMissing(Missing missing){
+        for(Missing e: missingRoommates){
+            if(missing.equals(e)) return;
+        }
+        missingRoommates.add(missing);
+    }
+
+    public ArrayList<Missing> getMissingRoommates(){ return missingRoommates;}
+
+    public Missing getMissing() {
+        throw new UnsupportedOperationException();
+    }
 
     public Roommate getRoommate(String roommateName){
         for(Roommate e: roommates){

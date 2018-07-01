@@ -6,8 +6,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -28,6 +30,12 @@ public class JobsFragment extends Fragment implements LoaderManager.LoaderCallba
     Button createJobButton;
     boolean is_loaded = false;
     ProgressDialog nDialog;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup vg, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_jobs, vg, false);
@@ -54,7 +62,6 @@ public class JobsFragment extends Fragment implements LoaderManager.LoaderCallba
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("onActivityResult","called");
-
         if (requestCode == 0) {
             if(resultCode == Activity.RESULT_OK){
                 Log.d("notifydatasetchanged","notified");
@@ -64,9 +71,18 @@ public class JobsFragment extends Fragment implements LoaderManager.LoaderCallba
     }
 
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.refresh){
+            getLoaderManager().initLoader(0,null,this ).forceLoad();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public Loader<ArrayList<Job>> onCreateLoader(int id, Bundle args) {
+
         nDialog = new ProgressDialog(getActivity());
         nDialog.show();
         return new RetrieveJobsAsync(getContext());
